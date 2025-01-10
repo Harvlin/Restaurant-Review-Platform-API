@@ -1,1 +1,1 @@
-# Restaurant Review Platform
+# **Restaurant Review Platform API**
