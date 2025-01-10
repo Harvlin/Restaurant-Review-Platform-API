@@ -4,6 +4,8 @@ import com.project.RestaurantReviewPlatform.domain.entity.RestaurantEntity;
 import com.project.RestaurantReviewPlatform.repositories.RestaurantRepository;
 import com.project.RestaurantReviewPlatform.repositories.ReviewRepository;
 import com.project.RestaurantReviewPlatform.services.RestaurantService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,8 +48,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantEntity getRestaurantById(UUID id) {
-        return restaurantRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+    public Page<RestaurantEntity> findAll(Pageable pageable) {
+        return restaurantRepository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<RestaurantEntity> getRestaurantById(UUID id) {
+        return restaurantRepository.findById(id);
     }
 
     @Override
@@ -67,5 +74,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
         restaurantEntity.setAvgRating(avgRating);
         restaurantRepository.save(restaurantEntity);
+    }
+
+    @Override
+    public boolean isExist(UUID id) {
+        return restaurantRepository.existsById(id);
     }
 }

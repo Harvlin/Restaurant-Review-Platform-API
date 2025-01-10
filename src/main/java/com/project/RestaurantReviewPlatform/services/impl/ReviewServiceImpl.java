@@ -4,6 +4,8 @@ import com.project.RestaurantReviewPlatform.domain.entity.ReviewEntity;
 import com.project.RestaurantReviewPlatform.repositories.ReviewRepository;
 import com.project.RestaurantReviewPlatform.services.RestaurantService;
 import com.project.RestaurantReviewPlatform.services.ReviewService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +51,11 @@ public class ReviewServiceImpl implements ReviewService {
         } else {
             throw new RuntimeException("Restaurant not found");
         }
+    }
+
+    @Override
+    public Page<ReviewEntity> findAll(Pageable pageable) {
+        return reviewRepository.findAll(pageable);
     }
 
     @Override
