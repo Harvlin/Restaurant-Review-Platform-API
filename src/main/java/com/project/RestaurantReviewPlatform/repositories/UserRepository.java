@@ -3,7 +3,6 @@ package com.project.RestaurantReviewPlatform.repositories;
 import com.project.RestaurantReviewPlatform.domain.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

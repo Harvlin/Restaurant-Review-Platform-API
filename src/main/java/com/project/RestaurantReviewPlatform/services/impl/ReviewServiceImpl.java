@@ -59,17 +59,22 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewEntity getReviewById(UUID id) {
-        return reviewRepository.getReferenceById(id);
+    public Optional<ReviewEntity> getReviewById(UUID id) {
+        return reviewRepository.findById(id);
     }
 
     @Override
-    public List<ReviewEntity> getReviewsByRestaurant(UUID restaurantId) {
+    public List<ReviewEntity> listReviewByRestaurantId(UUID restaurantId) {
         return reviewRepository.findByRestaurant_Id(restaurantId);
     }
 
     @Override
-    public List<ReviewEntity> getReviewsByUser(UUID userId) {
+    public List<ReviewEntity> listReviewByUserId(UUID userId) {
         return reviewRepository.findByUserEntity_Id(userId);
+    }
+
+    @Override
+    public boolean isExist(UUID id) {
+        return reviewRepository.existsById(id);
     }
 }

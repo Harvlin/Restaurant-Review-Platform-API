@@ -4,6 +4,7 @@ import com.project.RestaurantReviewPlatform.domain.dtos.RestaurantDto;
 import com.project.RestaurantReviewPlatform.domain.entity.RestaurantEntity;
 import com.project.RestaurantReviewPlatform.mappers.Mapper;
 import com.project.RestaurantReviewPlatform.services.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ public class RestaurantController {
     private RestaurantService restaurantService;
     private Mapper<RestaurantEntity, RestaurantDto> restaurantMapper;
 
+    @Autowired
     public RestaurantController(RestaurantService restaurantService, Mapper<RestaurantEntity, RestaurantDto> restaurantMapper) {
         this.restaurantService = restaurantService;
         this.restaurantMapper = restaurantMapper;
@@ -49,14 +51,14 @@ public class RestaurantController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<List<RestaurantDto>> findRestaurantByName(@PathVariable("name") String name) {
-        List<RestaurantEntity> list = restaurantService.searchRestaurantsByName(name);
+    public ResponseEntity<List<RestaurantDto>> listRestaurantByName(@PathVariable("name") String name) {
+        List<RestaurantEntity> list = restaurantService.listRestaurantByName(name);
         return new ResponseEntity<>(list.stream().map(restaurantMapper::mapTo).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/{cuisine}")
-    public ResponseEntity<List<RestaurantDto>> findByRestaurantCuisine(@PathVariable("cuisine") String cuisine) {
-        List<RestaurantEntity> list = restaurantService.searchRestaurantsByCuisine(cuisine);
+    public ResponseEntity<List<RestaurantDto>> listRestaurantByCuisine(@PathVariable("cuisine") String cuisine) {
+        List<RestaurantEntity> list = restaurantService.listRestaurantByCuisine(cuisine);
         return new ResponseEntity<>(list.stream().map(restaurantMapper::mapTo).toList(), HttpStatus.OK);
     }
 
@@ -85,7 +87,7 @@ public class RestaurantController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") UUID id) {
+    public ResponseEntity deleteRestaurant(@PathVariable("id") UUID id) {
         if (!restaurantService.isExist(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

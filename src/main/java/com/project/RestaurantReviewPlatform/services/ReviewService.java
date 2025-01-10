@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ReviewService {
@@ -17,9 +18,11 @@ public interface ReviewService {
 
     Page<ReviewEntity> findAll(Pageable pageable);
 
-    ReviewEntity getReviewById(UUID id);
+    Optional<ReviewEntity> getReviewById(UUID id);
 
-    List<ReviewEntity> getReviewsByRestaurant(UUID restaurantId);
+    List<ReviewEntity> listReviewByRestaurantId(UUID restaurantId);
 
-    List<ReviewEntity> getReviewsByUser(UUID userId);
+    List<ReviewEntity> listReviewByUserId(UUID userId);
+
+    boolean isExist(UUID id);
 }

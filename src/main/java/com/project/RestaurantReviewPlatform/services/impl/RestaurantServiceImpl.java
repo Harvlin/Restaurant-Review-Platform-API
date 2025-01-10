@@ -7,7 +7,6 @@ import com.project.RestaurantReviewPlatform.services.RestaurantService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,12 +57,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantEntity> searchRestaurantsByName(String name) {
+    public List<RestaurantEntity> listRestaurantByName(String name) {
         return restaurantRepository.findByNameContainingIgnoreCase(name);
     }
 
     @Override
-    public List<RestaurantEntity> searchRestaurantsByCuisine(String cuisine) {
+    public List<RestaurantEntity> listRestaurantByCuisine(String cuisine) {
         return restaurantRepository.findByCuisineTypeContainingIgnoreCase(cuisine);
     }
 

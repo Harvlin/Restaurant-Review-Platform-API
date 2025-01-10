@@ -20,9 +20,9 @@ public interface RestaurantService {
 
     Optional<RestaurantEntity> getRestaurantById(UUID id);
 
-    List<RestaurantEntity> searchRestaurantsByName(String name);
+    List<RestaurantEntity> listRestaurantByName(String name);
 
-    List<RestaurantEntity> searchRestaurantsByCuisine(String cuisine);
+    List<RestaurantEntity> listRestaurantByCuisine(String cuisine);
 
     void updateAverageRating(UUID id);
 
