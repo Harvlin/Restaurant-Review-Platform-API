@@ -10,9 +10,9 @@ import java.util.UUID;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity, UUID> {
-    List<ReviewEntity> findByRestaurant_Id(UUID restaurantId);
+    List<ReviewEntity> findByRestaurantId(UUID restaurantId);
 
-    List<ReviewEntity> findByUserEntity_Id(UUID userId);
+    List<ReviewEntity> findByUserEntityId(UUID userId);
 
     @Query("SELECT AVG(r.rating) FROM ReviewEntity r WHERE r.restaurant.id = :restaurantId")
     Double findAverageRatingByRestaurantId(@Param("restaurantId") UUID restaurantId);
