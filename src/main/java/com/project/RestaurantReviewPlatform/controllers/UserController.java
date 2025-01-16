@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,13 +41,19 @@ public class UserController {
         return userEntities.map(userMapper::mapTo);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/id/{id}")
     public ResponseEntity<UserDto> findOne(@PathVariable("id") UUID id) {
         Optional<UserEntity> foundUser = userService.findOne(id);
         return foundUser.map(userEntity -> {
             UserDto userDto = userMapper.mapTo(userEntity);
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping(path = "/name/{name}")
+    public ResponseEntity<List<UserDto>> findByName(@PathVariable("name") String name) {
+        List<UserEntity> foundUser = userService.findByName(name);
+        return new ResponseEntity<>(foundUser.stream().map(userMapper::mapTo).toList(), HttpStatus.OK);
     }
 
     @PutMapping(path = "/{id}")

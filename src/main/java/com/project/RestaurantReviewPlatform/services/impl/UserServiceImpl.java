@@ -6,6 +6,8 @@ import com.project.RestaurantReviewPlatform.services.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,6 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserEntity> findByName(String name) {
+        return userRepository.findAllByName(name);
+    }
+
+    @Override
     public UserEntity partialUpdate(UUID id, UserEntity userEntity) {
         userEntity.setId(id);
 
@@ -51,6 +58,11 @@ public class UserServiceImpl implements UserService {
         } else {
             userRepository.deleteById(id);
         }
+    }
+
+    @Override
+    public UserEntity getUserById(UUID uuid) {
+        return userRepository.getUserById(uuid);
     }
 
     @Override
